@@ -1,3 +1,4 @@
+import os
 import chromadb
 from chromadb.utils import embedding_functions
 
@@ -7,13 +8,14 @@ class VectorStore:
         # Initialize chroma client
         self.client = chromadb.PersistentClient(path=self.persist_directory)
         
-        # Use sentence-transformers
-        self.embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
-            model_name="all-MiniLM-L6-v2"
+        # Use OpenAI Embeddings
+        self.embedding_fn = embedding_functions.OpenAIEmbeddingFunction(
+            api_key=os.environ.get("OPENAI_API_KEY"),
+            model_name="text-embedding-3-small"
         )
         
         self.collection = self.client.get_or_create_collection(
-            name="policy_docs",
+            name="policy_docs_openai",
             embedding_function=self.embedding_fn
         )
 

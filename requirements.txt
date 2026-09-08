@@ -1,6 +1,5 @@
 streamlit
 pdfplumber
-sentence-transformers
 chromadb
 rank_bm25
 pandas
