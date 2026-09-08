@@ -8,14 +8,13 @@ class VectorStore:
         # Initialize chroma client
         self.client = chromadb.PersistentClient(path=self.persist_directory)
         
-        # Use OpenAI Embeddings
-        self.embedding_fn = embedding_functions.OpenAIEmbeddingFunction(
-            api_key=os.environ.get("OPENAI_API_KEY"),
-            model_name="text-embedding-3-small"
+        # Use Google Gemini Embeddings
+        self.embedding_fn = embedding_functions.GoogleGenerativeAiEmbeddingFunction(
+            api_key=os.environ.get("GEMINI_API_KEY")
         )
         
         self.collection = self.client.get_or_create_collection(
-            name="policy_docs_openai",
+            name="policy_docs_gemini",
             embedding_function=self.embedding_fn
         )
 

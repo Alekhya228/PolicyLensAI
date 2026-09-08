@@ -4,15 +4,15 @@ from src.ingestion.parser import PolicyParser
 from src.ingestion.chunker import TextChunker
 from src.retrieval.vector_store import VectorStore
 from src.retrieval.hybrid_search import HybridSearcher
-from src.generation.llm import OpenAIGenerator
+from src.generation.llm import GeminiGenerator
 
 class PolicyLensPipeline:
-    def __init__(self, raw_pdf_dir="data/raw_pdfs", model_name="gpt-3.5-turbo"):
+    def __init__(self, raw_pdf_dir="data/raw_pdfs", model_name="gemini-1.5-flash"):
         self.raw_pdf_dir = raw_pdf_dir
         self.chunker = TextChunker(chunk_size=500, overlap=50)
         self.vector_store = VectorStore()
         self.hybrid_searcher = HybridSearcher(self.vector_store)
-        self.llm = OpenAIGenerator(model_name=model_name)
+        self.llm = GeminiGenerator(model_name=model_name)
         
     def ingest_documents(self):
         """Parses all PDFs, chunks them, and adds to the vector store & BM25."""

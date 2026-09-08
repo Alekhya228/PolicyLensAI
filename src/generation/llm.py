@@ -1,24 +1,18 @@
 import os
-from openai import OpenAI
+import google.generativeai as genai
 
-class OpenAIGenerator:
-    def __init__(self, model_name="gpt-3.5-turbo"):
+class GeminiGenerator:
+    def __init__(self, model_name="gemini-1.5-flash"):
         self.model_name = model_name
-        self.client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+        genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
+        self.model = genai.GenerativeModel(model_name)
         
     def generate(self, prompt):
         try:
-            response = self.client.chat.completions.create(
-                model=self.model_name,
-                messages=[
-                    {"role": "system", "content": "You are a helpful assistant."},
-                    {"role": "user", "content": prompt}
-                ],
-                temperature=0.0
-            )
-            return response.choices[0].message.content
+            response = self.model.generate_content(prompt)
+            return response.text
         except Exception as e:
-            print(f"Error calling OpenAI: {e}")
+            print(f"Error calling Gemini: {e}")
             return f"Error generating response: {str(e)}"
             
     def generate_rag_answer(self, query, context_chunks):

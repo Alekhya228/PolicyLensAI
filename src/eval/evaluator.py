@@ -1,11 +1,11 @@
 import os
 import pandas as pd
 from src.pipeline import PolicyLensPipeline
-from src.generation.llm import OpenAIGenerator
+from src.generation.llm import GeminiGenerator
 
 class RAGEvaluator:
-    def __init__(self, model_name="gpt-3.5-turbo"):
-        self.llm = OpenAIGenerator(model_name=model_name)
+    def __init__(self, model_name="gemini-1.5-flash"):
+        self.llm = GeminiGenerator(model_name=model_name)
         
     def score_faithfulness(self, question, context, answer):
         """Uses LLM-as-a-judge to check if the answer is grounded in the context."""
@@ -43,9 +43,9 @@ def run_evaluation():
         "Can I get an incomplete grade if I finished 50% of the coursework?"
     ]
     
-    pipeline = PolicyLensPipeline(model_name="gpt-3.5-turbo")
+    pipeline = PolicyLensPipeline(model_name="gemini-1.5-flash")
     pipeline.ingest_documents()
-    evaluator = RAGEvaluator(model_name="gpt-3.5-turbo")
+    evaluator = RAGEvaluator(model_name="gemini-1.5-flash")
     
     results = []
     

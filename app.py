@@ -6,7 +6,7 @@ st.set_page_config(page_title="PolicyLens AI", layout="wide")
 
 @st.cache_resource
 def get_pipeline():
-    pipeline = PolicyLensPipeline(model_name="gpt-3.5-turbo")
+    pipeline = PolicyLensPipeline(model_name="gemini-1.5-flash")
     return pipeline
 
 st.title("PolicyLens AI 📚")

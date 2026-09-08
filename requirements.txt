@@ -4,5 +4,5 @@ chromadb
 rank_bm25
 pandas
 reportlab
-openai
+google-generativeai
 matplotlib
