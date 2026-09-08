@@ -6,8 +6,7 @@ st.set_page_config(page_title="PolicyLens AI", layout="wide")
 
 @st.cache_resource
 def get_pipeline():
-    # Initialize pipeline with phi3 model (or llama3.2 depending on local setup)
-    pipeline = PolicyLensPipeline(model_name="phi3")
+    pipeline = PolicyLensPipeline(model_name="gpt-3.5-turbo")
     return pipeline
 
 st.title("PolicyLens AI 📚")

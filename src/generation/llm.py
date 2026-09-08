@@ -1,26 +1,24 @@
-import requests
-import json
+import os
+from openai import OpenAI
 
-class OllamaGenerator:
-    def __init__(self, model_name="phi3", base_url="http://localhost:11434"):
+class OpenAIGenerator:
+    def __init__(self, model_name="gpt-3.5-turbo"):
         self.model_name = model_name
-        self.base_url = base_url
+        self.client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
         
     def generate(self, prompt):
-        url = f"{self.base_url}/api/generate"
-        payload = {
-            "model": self.model_name,
-            "prompt": prompt,
-            "stream": False
-        }
-        
         try:
-            response = requests.post(url, json=payload)
-            response.raise_for_status()
-            result = response.json()
-            return result.get("response", "")
+            response = self.client.chat.completions.create(
+                model=self.model_name,
+                messages=[
+                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.0
+            )
+            return response.choices[0].message.content
         except Exception as e:
-            print(f"Error calling Ollama: {e}")
+            print(f"Error calling OpenAI: {e}")
             return f"Error generating response: {str(e)}"
             
     def generate_rag_answer(self, query, context_chunks):
