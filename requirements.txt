@@ -5,3 +5,4 @@ rank_bm25
 pandas
 reportlab
 openai
+matplotlib
