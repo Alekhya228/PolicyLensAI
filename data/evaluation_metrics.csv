@@ -1,0 +1,4 @@
+question,faithfulness,relevance
+What are the GPA points for a C grade?,1.0,1.0
+What happens if a student is caught cheating on an exam?,1.0,1.0
+Can I get an incomplete grade if I finished 50% of the coursework?,0.0,0.0
